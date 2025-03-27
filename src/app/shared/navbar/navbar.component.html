@@ -1,0 +1,115 @@
+<div class="flex w-full justify-between px-4 py-2 bg-white sm:shadow-xl fixed z-50">
+  
+  <a href="">
+    <img class="h-8 w-auto self-center" src="favicon.ico" alt="logo-angular">
+  </a>
+    
+    <div class="flex justify-end items-center relative" (mouseleave)="cerrarMenu()">
+      <!-- Iconos abrir y cerrar -->
+      <div class="hover:bg-gray-100 p-2 rounded-xl" (click)="onClickMenuHamburguesa()"
+        (pointerenter)="onHoverMenu($event)">
+        <!-- Icono para X -->
+        <svg class="size-6 {{ (menuAbierto ? '' : 'hidden') }}" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+        <!-- Menu hamburguesa -->
+        <svg class="size-6 {{ (menuAbierto ? 'hidden' : '') }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </div>
+  
+      <!-- Este es un espacio en blanco para controlar el comportamiento del menu -->
+      <div class="absolute right-0 top-full w-[50px] h-3"></div>
+      <!-- Menu (modal) -->
+      <div class="bg-white absolute right-0 top-full p-4 mt-3 rounded-lg {{ (menuAbierto ? '' : 'hidden') }} w-[300px] sm:w-[500px]">
+        
+        <!-- Inicio -->
+        <div class="group relative w-full flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-100"
+          (click)="onClickMenuHamburguesa()">
+          
+          <div class="flex-auto">
+            <a href="" class="flex text-gray-500 text-md">
+              <div class="w-4 mr-3 flex content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5120 5120">
+                  <g fill="currentColor">
+                    <g>
+                      <path d="M1050 5100 c-214 -26 -393 -173 -463 -379 -22 -66 -22 -68 -25 -883 l-3 -818 -42 0 c-285 -1 -498 -201 -498 -470 0 -96 22 -174 71 -249 16 -25 521 -537 1122 -1137 1269 -1268 1142 -1159 1358 -1159 216 0 89 -109 1358 1159 601 600 1107 1112 1123 1139 45 69 69 155 69 247 0 269 -212 469 -497 470 l-42 0 -3 818 c-3 814 -3 817 -25 883 -61 180 -219 324 -403 370 -43 11 -159 14 -515 14 l-460 0 -36 -23 c-71 -44 -69 -18 -69 -719 0 -704 0 -699 -68 -775 -20 -23 -59 -52 -87 -64 -49 -23 -57 -24 -339 -24 -193 0 -302 4 -328 12 -50 15 -122 78 -151 132 -22 41 -22 44 -27 706 -6 733 -1 690 -70 733 -35 22 -41 22 -460 23 -234 1 -454 -2 -490 -6z m730 -837 c0 -605 3 -632 62 -753 40 -82 149 -193 234 -238 107 -56 155 -62 494 -62 339 0 387 6 494 62 83 44 193 155 234 238 59 120 62 147 62 753 l0 547 365 0 c395 0 397 0 470 -55 19 -15 47 -52 62 -83 l28 -57 5 -900 c6 -993 1 -923 67 -966 24 -16 49 -19 168 -19 77 0 157 -5 177 -10 44 -13 93 -52 113 -91 18 -33 20 -121 4 -152 -16 -31 -2138 -2155 -2171 -2173 -35 -18 -121 -18 -156 0 -33 18 -2155 2142 -2171 2173 -20 39 -14 126 12 163 51 76 95 89 287 90 114 0 139 3 163 19 66 43 61 -27 67 971 5 859 6 907 24 940 35 66 65 98 118 124 l52 26 368 0 368 0 0 -547z">
+                      </path>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <div class="text-xl">
+                Inicio
+              </div>
+              <span class="absolute inset-0"></span>
+            </a>
+          </div>
+        </div>
+        <!-- Titulo -->
+         <div class="text-gray-800 text-xl p-4">Pruebas ténicas</div>
+        
+         <!-- Primera opciones de menu modal Capacidad Demandada y RAP en 2024 SIN (v2025 01 31) -->
+        <div class="group relative w-full flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-100"
+          (click)="onClickMenuHamburguesa()">
+          
+          <div class="flex-auto">
+            <a href="años-bisiestos" class="block text-gray-500">
+              Años bisiestos
+              <span class="absolute inset-0"></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Segunda opcion -->
+        <div class="group relative w-full flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-100"
+        (click)="onClickMenuHamburguesa()">
+        
+        <div class="flex-auto">
+          <a href="the-legend-of-zelda" class="block text-gray-500">
+            The Legend of Zelda
+            <span class="absolute inset-0"></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Tercera opcion -->
+      <div class="group relative w-full flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-100"
+      (click)="onClickMenuHamburguesa()">
+      
+      <div class="flex-auto">
+        <a href="codigo-morse" class="block text-gray-500">
+          Código Morse
+          <span class="absolute inset-0"></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Segunda opcion -->
+    <div class="group relative w-full flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-100"
+    (click)="onClickMenuHamburguesa()">
+    
+    <div class="flex-auto">
+      <a href="batalla-pokemon" class="block text-gray-500">
+        Batalla Pokemon
+        <span class="absolute inset-0"></span>
+      </a>
+    </div>
+  </div>
+  
+      </div>
+  
+    </div>
+  
+  </div>
+  
+  <div class="icono hidden">
+  
+    <svg class="size-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+      <path fill-rule="evenodd"
+        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+        clip-rule="evenodd" />
+    </svg>
+  </div>

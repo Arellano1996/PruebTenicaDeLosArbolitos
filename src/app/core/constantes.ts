@@ -1,0 +1,1 @@
+export const AlturaNavBar = '56px'
