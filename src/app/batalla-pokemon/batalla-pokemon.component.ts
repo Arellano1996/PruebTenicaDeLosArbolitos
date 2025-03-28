@@ -463,26 +463,40 @@ export default class BatallaPokemonComponent {
     
     if(key === 0){
       if(valor === 0){
-        //console.log( 'Aumentar Poder')
-        this.AgregarComentarioACaja(`${ this.campoDeBatalla[indexPokemon].nombre } ha aumentado su poder.`)
-        this.campoDeBatalla[indexPokemon].atk++
+        if( this.campoDeBatalla[indexPokemon].atk === 100 ){
+          this.AgregarComentarioACaja(`El ataque de ${ this.campoDeBatalla[indexPokemon].nombre } no puede aumentar más.`)
+        }else{
+          this.AgregarComentarioACaja(`${ this.campoDeBatalla[indexPokemon].nombre } ha aumentado su poder.`)
+          this.campoDeBatalla[indexPokemon].atk++
+        }
         this.activarAnimacionBuff()
       }else{
-        //console.log( 'Poder disminuido')
-        this.campoDeBatalla[indexPokemon].atk--
-        this.AgregarComentarioACaja(`${ this.campoDeBatalla[indexPokemon].nombre } ha disminuido su poder.`)
+        if( this.campoDeBatalla[indexPokemon].atk === 1){
+          this.AgregarComentarioACaja(`El ataque de ${ this.campoDeBatalla[indexPokemon].nombre } no puede disminuir.`)
+        }else{
+          this.campoDeBatalla[indexPokemon].atk--
+          this.AgregarComentarioACaja(`${ this.campoDeBatalla[indexPokemon].nombre } ha disminuido su poder.`)
+        }
         
         this.activarAnimacionBuff(1)
       }
     }else{
       if(valor === 0){
-        this.campoDeBatalla[indexPokemon].def++
-        this.AgregarComentarioACaja(`${ this.campoDeBatalla[indexPokemon].nombre } ha aumentado su defensa.`)
+        if( this.campoDeBatalla[indexPokemon].def === 100){
+          this.AgregarComentarioACaja(`La defensa de ${ this.campoDeBatalla[indexPokemon].nombre } no puede aumentado más.`)
+        }else{
+          this.campoDeBatalla[indexPokemon].def++
+          this.AgregarComentarioACaja(`${ this.campoDeBatalla[indexPokemon].nombre } ha aumentado su defensa.`)
+        }
         
         this.activarAnimacionBuff()
       }else{
-        this.campoDeBatalla[indexPokemon].def--
-        this.AgregarComentarioACaja(`${ this.campoDeBatalla[indexPokemon].nombre } ha disminuido su defensa.`)
+        if( this.campoDeBatalla[indexPokemon].def === 1){
+          this.AgregarComentarioACaja(`La defensa de ${ this.campoDeBatalla[indexPokemon].nombre } no puede disminuir más.`)
+        }else{
+          this.campoDeBatalla[indexPokemon].def--
+          this.AgregarComentarioACaja(`${ this.campoDeBatalla[indexPokemon].nombre } ha disminuido su defensa.`)
+        }
         
         this.activarAnimacionBuff(1)
       }
