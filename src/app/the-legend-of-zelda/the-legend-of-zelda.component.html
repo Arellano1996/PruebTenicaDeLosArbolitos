@@ -1,57 +1,112 @@
-
 <div class="flex flex-col p-4">
 
-    <h1 class="text-green-700 text-3xl">The Legend of Zelda </h1>
-    <div class="flex space-x-10">
-        <a href="años-bisiestos">
-            <span class="underline text-gray-400 text-sm">prueba anterior<span aria-hidden="true">&rarr;</span></span>
-        </a>
+  <h1 class="text-green-600 text-3xl">The Legend of Zelda </h1>
+  <div class="flex space-x-10">
+    <a href="años-bisiestos">
+      <span class="underline text-gray-400 text-sm">prueba anterior (Años biciestos)<span aria-hidden="true">&rarr;</span></span>
+    </a>
 
-        <a href="codigo-morse">
-            <span class="underline text-gray-400 text-sm">siguiente prueba<span aria-hidden="true">&rarr;</span></span>
-        </a>
-    </div>
-    
+    <a href="codigo-morse">
+      <span class="underline text-gray-400 text-sm">siguiente prueba (Código Morse)<span aria-hidden="true">&rarr;</span></span>
+    </a>
+  </div>
 
-    <div class="overflow-x-auto mt-8">
-        <span class="ml-4">código fuente:</span>
-        <pre class="bg-gray-900 text-green-400 p-4 w-fit rounded-2xl">
+
+  <div class="overflow-x-auto mt-8">
+    <span class="ml-4 text-gray-400">código fuente:</span>
+    <pre class="bg-gray-900 text-green-400 p-4 w-fit rounded-2xl">
             <code>
               {{ codigo }}
             </code>
         </pre>
-    </div>
-      
-    <div class="mt-8">
-        <span class="text-3xl text-gray-700">Ejecutar prueba</span>
+  </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 h-[500px] mt-8">
+  <div class="mt-8">
+    <span class="text-3xl text-gray-700">Ejecutar prueba</span>
+    <p class="text-md text-gray-500">Arrastra los elementos de la lista de juegos a la parte de abajo para poder calcular los días que hay entre las fechas de lanzamiento, por defecto hay un elemento en la lista de abajo, también puedes arrastrar elementos a la lista de juegos para liberar espacios</p>
 
-            <div>
-                <span class="text-gray-600">Introduce un año y se calcularan los próximos 30 años bisiestos</span>
-                <div class="relative mt-2">
-                    <form class="grid flex-1 grid-cols-1 relative bg-gray-100/50 p-4 rounded-xl" autocomplete="off" [formGroup]="formulario">
-                        <input type="number" aria-label="Search" class="col-start-1 row-start-1 block size-full bg-transparent pl-8 text-base text-gray-800 outline-none placeholder:text-gray-500 sm:text-sm/6" 
-                        formControlName="anio"
-                        (keyup.enter)="submit()"
-                        (blur)="onBlur()"
-                        placeholder="escribe un año">
-                        <svg class="pointer-events-none col-start-1 row-start-1 size-5 self-center text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
-                        </svg>
-                    </form>
-                    @if( esValidoElCampos('anio') ){
-                        <span class="text-red-500 ml-12 text-sm relative -top-5">Valor no permitido</span>
-                    }
-                </div>
+
+    <div cdkDropListGroup>
+      <div class="">
+        <h2 class="ml-4 mt-10 text-gray-400">lista de juegos:</h2>
+
+        <div cdkDropList [cdkDropListData]="listaJuegos"
+          class="flex flex-col p-4 bg-gray-100 overflow-x-auto rounded-xl" (cdkDropListDropped)="drop($event)">
+          <div class="flex space-x-4">
+            <div class="flex  h-[150px] bg-white rounded-xl border border-gray-200" *ngFor="let item of listaJuegos"
+              cdkDrag>
+              <!-- template para la información -->
+              <div class="w-[100px] overflow-hidden">
+                <img class="h-[200px] rounded-xl object-cover object-center mb-2" src="zelda-covers/{{ item.Cover }}"
+                  alt="">
+              </div>
+              <div class="flex flex-col p-2 text-left w-[150px]">
+                <span class="text-xl mb-2">{{item.Nombre}}</span>
+                <span class="text-md"><span class="text-sm text-gray-400">fecha:</span>{{item.FechaLanzamiento}}</span>
+              </div>
             </div>
-            
-            <div>
-                <span class="text-gray-600 ml-4">resultado:</span>
-
-                <pre class="bg-zinc-800 text-white p-4 rounded-xl">{{ resultado | json }}</pre>
-            </div>
+          </div>
+          <div class="text-gray-300 text-center text-3xl py-4">Desliza para visualizar más elementos <span
+              aria-hidden="true">&rarr;</span></div>
         </div>
+      </div>
+
+      <div class="flex flex-col items-center mt-10 w-full">
+        <h2 class="text-3xl text-gray-500">Calcular dias entre las fechas de lanzamiento</h2>
+        <span class="text-sm text-gray-400 mb-4">Necesitas dos elementos para poder calcular los dias entre las fechas
+          de lanzamiento</span>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+          <div cdkDropList id="comprarFechas" [cdkDropListData]="comprarFechas"
+            class="grid grid-cols-2 gap-4 p-4 w-md sm:w-full rounded-xl bg-gray-50" (cdkDropListDropped)="drop($event)">
+  
+            <!-- Mensaje cuando la lista está vacía -->
+            <div *ngIf="comprarFechas.length === 0"
+              class="col-span-2 flex justify-center items-center text-center py-8 text-gray-400 text-lg">
+              No hay elementos, arrastra aquí para agregar
+            </div>
+  
+            <!-- Elementos de la lista -->
+            <div class="example-box" *ngFor="let item of comprarFechas" cdkDrag>
+              <div class="flex flex-col items-center px-2 py-4 w-full rounded-xl bg-white">
+                <img class="w-[100px] rounded-xl object-cover" src="zelda-covers/{{ item.Cover }}" alt="">
+                <span class="text-center text-xl mb-2">{{item.Nombre}}</span>
+                <span class="text-md"><span class="text-sm text-gray-400">fecha:</span>{{item.FechaLanzamiento}}</span>
+              </div>
+            </div>
+  
+            <!-- Botón de calcular días -->
+            <div class="col-span-2 flex justify-center h-fit">
+              <button class="rounded-xl bg-blue-400 col-span-2 w-fit text-white px-2 py-4 mt-8"
+                (click)="calcularDiasEntreFechas()">Calcular días</button>
+            </div>
+  
+          </div>
+
+          <div class="flex flex-col p-4">
+            <span class="ml-4 text-sm text-gray-400">resultado:</span>
+            <div class="bg-zinc-800 rounded-xl h-full p-4 flex flex-col">
+              <span class="text-3xl text-gray-100">La cantidad de días entre estás dos fechas son:</span>
+              <span class="text-xl text-red-400">{{ error }}</span>
+              <span class="text-6xl font-semibold text-white">{{ resultado }}</span>
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+
+      </div>
+
+
+
+
     </div>
-    
+
+
+  </div>
+
 </div>

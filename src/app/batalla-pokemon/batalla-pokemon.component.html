@@ -1,1 +1,231 @@
-<p>batalla-pokemon works!</p>
+
+<div class="flex flex-col p-4">
+
+    <h1 class="text-red-600 text-3xl">Batalla Pokemon </h1>
+    <div class="flex space-x-10">
+        <a href="codigo-morse">
+            <span class="underline text-gray-400 text-sm">prueba anteior (Código Morse)<span aria-hidden="true">&rarr;</span></span>
+        </a>
+
+        <a href="">
+            <span class="underline text-gray-400 text-sm">regresar al inicio<span aria-hidden="true">&rarr;</span></span>
+        </a>
+    </div>
+    
+
+    <div class="overflow-x-auto mt-8">
+        <span class="ml-4 text-gray-400">código fuente:</span>
+        <pre class="bg-gray-900 text-green-400 p-4 w-fit rounded-2xl">
+            <code>
+              {{ codigo }}
+            </code>
+        </pre>
+    </div>
+      
+    <div class="mt-8">
+        <h3 class="text-3xl text-gray-700">Ejecutar prueba</h3>
+
+        <div class="flex flex-col mt-10">
+            <div class="flex flex-col">
+                <span class="text-3xl ml-3">Tabla Tipos y Debilidades </span>
+                <span class="text-sm self-baseline text-gray-400 ml-3">*Todos son poco efectivos contra los de su mismo tipo</span>
+            </div>
+            <div class="grid grid-cols-4 rounded-xl overflow-hidden bg-gray-100 border border-gray-300 text-gray-700 w-fit">
+                <div class="p-4 border border-gray-300">Tipo</div>
+                <div class="p-4 border border-gray-300">Poco efectivo</div>
+                <div class="p-4 border border-gray-300">Normal</div>
+                <div class="p-4 border border-gray-300">Muy efectivo</div>
+
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-xl text-sky-400"><div class="bg-sky-500 w-2 h-2 rounded-full mr-2"></div> <span>Agua</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-green-500 w-2 h-2 rounded-full mr-2"></div> <span>Planta</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-yellow-400 w-2 h-2 rounded-full mr-2"></div> <span>Electrico</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-red-500 w-2 h-2 rounded-full mr-2"></div> <span>Fuego</span></div>
+
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-xl text-yellow-400"><div class="bg-yellow-400 w-2 h-2 rounded-full mr-2"></div> <span>Electrico</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-green-500 w-2 h-2 rounded-full mr-2"></div> <span>Planta</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-red-500 w-2 h-2 rounded-full mr-2"></div> <span>Fuego</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-sky-500 w-2 h-2 rounded-full mr-2"></div> <span>Agua</span></div>
+
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-xl text-red-400"><div class="bg-red-500 w-2 h-2 rounded-full mr-2"></div> <span>Fuego</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-sky-500 w-2 h-2 rounded-full mr-2"></div> <span>Agua</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-yellow-400 w-2 h-2 rounded-full mr-2"></div> <span>Electrico</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-green-500 w-2 h-2 rounded-full mr-2"></div> <span>Planta</span></div>
+
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-xl text-green-400"><div class="bg-green-500 w-2 h-2 rounded-full mr-2"></div> <span>Planta</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-red-500 w-2 h-2 rounded-full mr-2"></div> <span>Fuego</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-yellow-400 w-2 h-2 rounded-full mr-2"></div> <span>Electrico</span></div>
+                <div class="flex items-center bg-white p-4 border border-gray-300 text-gray-400"><div class="bg-sky-500 w-2 h-2 rounded-full mr-2"></div> <span>Agua</span></div>
+            </div>
+        </div>
+
+        <div cdkDropListGroup>
+            <h2 class="ml-4 mt-10 text-gray-400">Pokedex:</h2>
+    
+            <div cdkDropList id="pokemones" [cdkDropListData]="pokemones"
+            class="flex w-full flex-col p-4 bg-red-600 overflow-x-auto rounded-xl" (cdkDropListDropped)="drop($event)">   
+            <div class="flex space-x-4">
+                    <div class="flex bg-white rounded-xl {{ pokemon.estilo }}" *ngFor="let pokemon of pokemones"
+                    cdkDrag>
+                    <!-- template para la información -->
+                    <div class="w-[200px] rounded-l-xl">
+                        <img class="rounded-xl object-cover object-center mb-2 hover:scale-125" src="{{ pokemon.img }}" alt="">
+                    </div>
+                    <div class="flex flex-col p-2 bg-gray-50 text-left w-[150px] rounded-r-xl">
+                        <span class="text-2xl mb-2">{{pokemon.nombre}}</span>
+                        <span class="text-gray-500 text-sm mb-2">salud: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.pv}}</span></span>
+                        <span class="text-gray-500 text-sm mb-2">ataque: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.atk}}</span></span>
+                        <span class="text-gray-500 text-sm mb-2">defensa: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.def}}</span></span>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-gray-50/40 text-center text-3xl py-4">
+                Desliza para ver más Pokemones <span aria-hidden="true">&rarr;</span>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-center mt-10 w-full">
+            <h2 class="text-3xl text-gray-500">Campo de batalla</h2>
+            <span class="text-sm text-gray-400 mb-4">Elige dos pokemones para pelear</span>
+            
+            <div class="relative flex rounded-xl z-[1] overflow-hidden w-full max-w-[600px] h-[500px] bg-cover bg-center border border-gray-400" style="background-image: url('/pokemon/estadio.jpg');">
+                <div class="absolute size-full z-[1] bg-black/20"></div>
+                
+                <div cdkDropList id="campoDeBatalla" [cdkDropListData]="campoDeBatalla"
+                class="grid grid-cols-2 w-full gap-4 p-10 rounded-xl z-10" (cdkDropListDropped)="drop($event)">
+                
+                <!-- Mensaje cuando la lista está vacía -->
+                <div *ngIf="campoDeBatalla.length === 0" class="col-span-2 flex justify-center items-center text-center  text-gray-400 text-lg">
+                    Agrega dos pokemones al campo de batalla
+                </div>
+                
+                <!-- Elementos de la lista -->
+                <div *ngFor="let pokemon of campoDeBatalla; let i= index" cdkDrag>
+                    <div class="flex flex-col items-center px-4 py-2  w-full rounded-xl bg-white/80 {{ pokemon.estilo }}">
+                        <div class="{{ pokemon.orientacion === 0 && i === 0 ? '-scale-x-[1]' : '' }}">
+                            <img id="Pokemon{{ i }}" 
+                            class="w-[200px] rounded-xl object-contain hover:scale-125" 
+                            [ngClass]="{ 
+                                'animate-bounce-scale': animar && pokemonActivo === i, 
+                                'animate-shake': shake && pokemonActivo != i || buff && pokemonActivo === i, 
+                                'animate-derrotado': derrotado && pokemonActivo != i, 
+                                'animate-to-left': toLeft && pokemonActivo === i, 
+                                'animate-to-right': toRight && pokemonActivo === i,
+                                 }" 
+                            src="{{ pokemon.img }}" alt="pokemon">
+                        </div>
+                        <div class="flex flex-col bg-white w-full rounded-xl p-2 {{ pokemon.estilo }}">
+                            <span class="text-2xl mb-2">{{ pokemon.nombre }}</span>
+                            <!-- <span class="text-gray-500 text-sm mb-2">salud: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.pv}}</span></span> -->
+
+                            <div class="w-full bg-gray-300 rounded-lg h-6 overflow-hidden">
+                                <div 
+                                  class="h-full transition-all duration-300 rounded-lg"
+                                  [ngClass]=" pokemon.estiloBatalla "
+                                  [ngStyle]="{ width: ( pokemon.pv ) / 200 * 100 + '%' }">
+                                </div>
+                            </div>
+                              
+                            <span class="text-gray-500 text-sm mt-1">
+                                Salud: <span class="{{ pokemon.estilo }} text-xl border-white">{{ pokemon.pv | number:'1.0-0' }}</span>
+                            </span>
+                              
+                              
+                            <span class="text-gray-500 text-sm mb-2">ataque: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.atk}}</span></span>
+                            <span class="text-gray-500 text-sm mb-2">defensa: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.def}}</span></span>
+                        </div>
+
+                        <button class="{{ puedeAtacar ? 'bg-blue-500' : 'bg-gray-500' }}  text-white px-4 py-1 rounded-xl mt-2 select-none" [disabled]="!puedeAtacar" (click)="atacar(pokemon, i)">Atacar</button>
+                        
+
+                    </div>
+                    </div>
+        
+                </div>
+        
+                </div>
+        
+        
+        
+        
+        
+        </div>
+        
+        
+
+        <div class="mt-4">
+            <div class="bg-gray-400 rounded-xl p-8 text-white grid sm:grid-cols-2 gap-4 overflow-y-auto">
+                <div class="" *ngFor="let pokemon of campoDeBatalla; let i = index">
+                    
+
+
+
+                    <div class="flex rounded-xl {{ pokemon.estilo }}">
+                        <!-- template para la información -->
+                        <div class="h-ful bg-white rounded-l-xl">
+                            <img class="rounded-xl object-cover object-center mb-2 hover:scale-125" src="{{ pokemon.img }}" alt="">
+                        </div>
+
+                        <div class="flex flex-col py-4 bg-gray-100 text-left w-fit pl-4 pr-16 text-nowrap">
+
+                            <span class="text-2xl mb-2">{{pokemon.nombre}}</span>
+                            <span class="text-gray-500 text-sm mb-2">salud: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.pv | number:'1.0-0'}}</span></span>
+                            <span class="text-gray-500 text-sm mb-2">ataque: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.atk}}</span></span>
+                            <span class="text-gray-500 text-sm mb-2">defensa: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.def}}</span></span>
+                            
+                        </div>
+
+                        <div class="rounded-r-xl bg-gray-700 text-white px-4 w-full py-4">
+                            <span class="text-xl">Acciones</span>
+                            <div class="flex space-y-2 flex-col">
+                                
+                                <div class="flex justify-between">
+                                    <span class="font-light">Poder</span>
+                                    <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 0, 0)">Aumentar</button>
+                                    <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 0, 1)">Disminuir</button>
+                                </div>
+
+                                <div class="flex justify-between">
+                                    <span class="font-light">Defensa</span>
+                                    <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 1, 0)">Aumentar</button>
+                                    <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 1, 1)">Disminuir</button>
+                                </div>
+
+                                <div class="w-full border px-1"></div>
+                                <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="curarPokemon(i)">Restaurar Salud</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <span class="text-gray-400 ml-4">
+                comentarios:
+            </span>
+            <div class="bg-gray-600 rounded-xl p-4 text-white h-[150px] overflow-y-auto">
+                <div *ngFor="let comentario of comentarios.reverse()" class="{{ comentario.diseno }}">
+                    {{ comentario.texto }}
+                </div>
+            </div>
+        </div>
+        
+        
+        </div>
+
+
+        
+    </div>
+    
+</div>

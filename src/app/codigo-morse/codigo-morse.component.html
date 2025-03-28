@@ -1,1 +1,123 @@
-<p>codigo-mose works!</p>
+
+<div class="flex flex-col p-4">
+
+    <h1 class="text-gray-700 text-3xl">Código Morse</h1>
+    <div class="flex space-x-10">
+        <a href="the-legend-of-zelda">
+            <span class="underline text-gray-400 text-sm">prueba anterior (The Legend of Zelda)<span aria-hidden="true">&rarr;</span></span>
+        </a>
+
+        <a href="batalla-pokemon">
+            <span class="underline text-gray-400 text-sm">última prueba (Batalla Pokemon)<span aria-hidden="true">&rarr;</span></span>
+        </a>
+    </div>
+    
+
+    <div class="overflow-x-auto mt-8">
+        <span class="ml-4 text-gray-400">código fuente:</span>
+        <pre class="bg-gray-900 text-green-400 p-4 w-fit rounded-2xl">
+            <code>
+              {{ codigo }}
+            </code>
+        </pre>
+    </div>
+      
+    <div class="mt-8">
+        <h3 class="text-3xl text-gray-700">Ejecutar prueba</h3>
+
+        <div class="grid grid-cols-2 sm:grid-cols-8 sm:bg-blue-50  bg-blue-50 rounded-xl p-2 my-8 text-center">
+
+            <div class="flex items-center ml-4 col-span-full">
+                <div (click)="toggleDiccionario()" class="group relative inline-flex h-5 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
+                    <span class="sr-only">Use setting</span>
+                    
+                    <!-- Fondo del toggle -->
+                    <span aria-hidden="true" class="pointer-events-none absolute w-full h-full rounded-md bg-white"></span>
+                  
+                    <!-- Parte de fondo gris -->
+                    <span aria-hidden="true" 
+                          class="pointer-events-none absolute mx-auto h-4 w-9 rounded-full {{ enabledDiccionario ? 'bg-blue-500' : 'bg-gray-200'}} transition-colors duration-200 ease-in-out"></span>
+                  
+                    <!-- Botón del toggle -->
+                    <span aria-hidden="true" 
+                          class="pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"
+                          [class.translate-x-5]="enabledDiccionario"></span>
+                  </div>
+                  <span class="col-span-6 text-left p-2 text-xl text-gray-700">Ver diccionar Morse <a class="underline text-sm" href="https://es.wikipedia.org/wiki/C%C3%B3digo_morse#Alfabeto_morse">fuente: Wikipedia</a> </span>
+            </div>
+            <div *ngFor="let item of getMorseCodeEntries()" class="grid grid-cols-2 m-2 bg-white rounded-xl overflow-hidden select-none {{ enabledDiccionario ? '' : 'hidden' }}">
+                <div class="bg-gray-400 border-r border-gray-200 text-white">Natural</div>
+                <div class="bg-gray-400 text-white">Morse</div>
+                <div class="text-2xl py-4 border-r border-gray-200 text-gray-800 border hover:border-blue-400 rounded-bl-xl font-light">
+                    {{ item[0] }}
+                </div>
+                <div class="text-2xl py-4 text-gray-800 border hover:border-blue-400 rounded-br-xl font-light">
+                    {{ item[1] }}
+                </div>
+
+            </div>
+        </div>
+          
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-10">
+
+            <div class="col-span-2 h-[100px]">
+                <div class="flex flex-col">
+                    
+                    <div class="flex items-center ml-4">
+                        <div (click)="toggle()" class="group relative inline-flex h-5 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
+                            <span class="sr-only">Use setting</span>
+                            
+                            <!-- Fondo del toggle -->
+                            <span aria-hidden="true" class="pointer-events-none absolute w-full h-full rounded-md bg-white"></span>
+                          
+                            <!-- Parte de fondo gris -->
+                            <span aria-hidden="true" 
+                                  class="pointer-events-none absolute mx-auto h-4 w-9 rounded-full {{ enabled ? 'bg-blue-500' : 'bg-gray-200'}} transition-colors duration-200 ease-in-out"></span>
+                          
+                            <!-- Botón del toggle -->
+                            <span aria-hidden="true" 
+                                  class="pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"
+                                  [class.translate-x-5]="enabled"></span>
+                          </div>
+                          <span class="ml-2 text-gray-400">Activar Teclado en modo Código Morse</span>
+                    </div>
+                    
+                    <div class="flex">
+                        <span class="text-gray-600 ml-4 w-fit">El texto que escribas será traducido a lenguaje natural o código morse</span>
+                        <div class="ml-4 flex text-gray-400"> <div class="self-center mr-1 p-2 {{ resultado.estiloDetector }} w-2 h-2 rounded-full"></div>{{ resultado.detector }}</div>
+                    </div>
+                      
+                </div>
+                <div class="relative">
+                    <form class="grid flex-1 grid-cols-1 relative bg-gray-100/50 p-4 rounded-xl" autocomplete="off" [formGroup]="formulario">
+                        <input type="text" aria-label="Search" class="col-start-1 row-start-1 block size-full bg-transparent pl-8 text-base text-gray-800 outline-none placeholder:text-gray-500 sm:text-sm/6" 
+                        formControlName="texto"
+                        (input)="onInputChange()"
+                        (keyup.enter)="submit()"
+                        (blur)="onBlur()"
+                        placeholder="escrite un texto ( y presiona ENTER para traducir )">
+                        <svg class="pointer-events-none col-start-1 row-start-1 size-5 self-center text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
+                        </svg>
+                    </form>
+                    @if( esValidoElCampos('texto') ){
+                        <span class="text-red-500 ml-12 text-sm relative -top-5">Valor no permitido</span>
+                    }
+                </div>
+            </div>
+            
+            <div>
+                <span class="text-gray-600 ml-4">lenguaje natural: <span class="underline text-gray-400 text-sm cursor-pointer" (click)="naturalAInput()">pasar valor a mi input<span aria-hidden="true">&rarr;</span></span></span>
+
+                <pre class="bg-zinc-800 text-white h-[56px] p-4 rounded-xl">{{ resultado.natural }}</pre>
+            </div>
+            <div class="">
+                <span class="text-gray-600 ml-4">código morse: <span class="underline text-gray-400 text-sm cursor-pointer" (click)="morseAInput()">pasar valor a mi input<span aria-hidden="true">&rarr;</span></span></span>
+
+                <pre class="bg-zinc-800 text-white h-[56px] p-4 rounded-xl overflow-auto">{{ resultado.morse }}</pre>
+            </div>
+        </div>
+    </div>
+    
+</div>
