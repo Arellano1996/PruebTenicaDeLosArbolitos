@@ -138,73 +138,52 @@
 
                         <button class="{{ puedeAtacar ? 'bg-blue-500' : 'bg-gray-500' }}  text-white px-4 py-1 rounded-xl mt-2 select-none" [disabled]="!puedeAtacar" (click)="atacar(pokemon, i)">Atacar</button>
                         
-
                     </div>
                     </div>
         
                 </div>
         
                 </div>
-        
-        
-        
-        
         
         </div>
         
-        
-
         <div class="mt-4">
-            <div class="bg-gray-400 rounded-xl p-8 text-white grid sm:grid-cols-2 gap-4 overflow-y-auto">
-                <div class="" *ngFor="let pokemon of campoDeBatalla; let i = index">
+            <span class="ml-4 text-sm text-gray-400">acciones</span>
+            <div class="bg-gray-200 rounded-xl p-8 text-white grid grid-cols-1 sm:grid-cols-2 sm:gap-4 overflow-y-auto">
+                <div class="grid grid-cols-1 xl:grid-cols-3 xl:w-fit rounded-xl {{ pokemon.estilo }}" *ngFor="let pokemon of campoDeBatalla; let i = index">
                     
+                    <div class="flex justify-center bg-white rounded-t-xl xl:rounded-l-xl">
+                        <img class="object-contain object-center mb-2 hover:scale-125" src="{{ pokemon.img }}" alt="">
+                    </div>
+    
+                    <div class="flex flex-col bg-gray-100 text-left px-4 text-nowrap">
 
-
-
-                    <div class="flex rounded-xl {{ pokemon.estilo }}">
-                        <!-- template para la información -->
-                        <div class="h-ful bg-white rounded-l-xl">
-                            <img class="rounded-xl object-cover object-center mb-2 hover:scale-125" src="{{ pokemon.img }}" alt="">
-                        </div>
-
-                        <div class="flex flex-col py-4 bg-gray-100 text-left w-fit pl-4 pr-16 text-nowrap">
-
-                            <span class="text-2xl mb-2">{{pokemon.nombre}}</span>
-                            <span class="text-gray-500 text-sm mb-2">salud: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.pv | number:'1.0-0'}}</span></span>
-                            <span class="text-gray-500 text-sm mb-2">ataque: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.atk}}</span></span>
-                            <span class="text-gray-500 text-sm mb-2">defensa: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.def}}</span></span>
-                            
-                        </div>
-
-                        <div class="rounded-r-xl bg-gray-700 text-white px-4 w-full py-4">
-                            <span class="text-xl">Acciones</span>
-                            <div class="flex space-y-2 flex-col">
-                                
-                                <div class="flex justify-between">
-                                    <span class="font-light">Poder</span>
-                                    <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 0, 0)">Aumentar</button>
-                                    <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 0, 1)">Disminuir</button>
-                                </div>
-
-                                <div class="flex justify-between">
-                                    <span class="font-light">Defensa</span>
-                                    <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 1, 0)">Aumentar</button>
-                                    <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 1, 1)">Disminuir</button>
-                                </div>
-
-                                <div class="w-full border px-1"></div>
-                                <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="curarPokemon(i)">Restaurar Salud</button>
-                            </div>
-                        </div>
+                        <span class="text-2xl mb-2">{{pokemon.nombre}}</span>
+                        <span class="text-gray-500 text-sm mb-2">salud: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.pv | number:'1.0-0'}}</span></span>
+                        <span class="text-gray-500 text-sm mb-2">ataque: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.atk}}</span></span>
+                        <span class="text-gray-500 text-sm mb-2">defensa: <span class="{{ pokemon.estilo }} text-xl border-white">{{pokemon.def}}</span></span>
                         
                     </div>
+    
+                    <div class="max-xl:rounded-b-xl xl:rounded-r-xl bg-gray-700 text-white px-4 py-4">
+                        <span class="text-xl col-span-2">Acciones</span>
+                        <div class="grid grid-cols-1 gap-4">
+                            
+                            <div class="grid grid-cols-2 gap-1">
+                                <span class="font-light col-span-2">Poder</span>
+                                <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 0, 0)">Aumentar</button>
+                                <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 0, 1)">Disminuir</button>
+                            </div>
 
+                            <div class="grid grid-cols-2 gap-1">
+                                <span class="font-light col-span-2">Defensa</span>
+                                <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 1, 0)">Aumentar</button>
+                                <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="editarEstadisticas(i, 1, 1)">Disminuir</button>
+                            </div>
 
-
-
-
-
-
+                            <button class="bg-blue-500 px-4 py-2 rounded-xl" (click)="curarPokemon(i)">Restaurar Salud</button>
+                        </div>
+                    </div>
 
                 </div>
             </div>
