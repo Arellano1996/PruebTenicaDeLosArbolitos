@@ -1,7 +1,7 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { determinarEfectividad, obtenerEfectividad } from './core/calcularDanio';
 
 export enum tipo {
@@ -407,13 +407,9 @@ export default class BatallaPokemonComponent {
 
     pokemonContrario.pv -= determinarEfectividad(this.campoDeBatalla[ this.pokemonActivo ], this.campoDeBatalla[indexRival])
 
-    //danio = this.campoDeBatalla[ this.pokemonActivo ].atk * 
-
-    this.AgregarComentarioACaja( `${this.campoDeBatalla[this.pokemonActivo].nombre} ataca a su rival ${this.campoDeBatalla[indexRival].nombre } y generó ${Math.floor(determinarEfectividad(this.campoDeBatalla[this.pokemonActivo], this.campoDeBatalla[indexRival])) } puntos de daño, es un ataque ${ obtenerEfectividad( this.campoDeBatalla[this.pokemonActivo].tipo, this.campoDeBatalla[indexRival].tipo) }` )
-
     if(pokemonContrario.pv < 0) pokemonContrario.pv = 0
     
-
+    
     if( pokemonContrario.pv > 160){
       this.campoDeBatalla[indexRival].estiloBatalla = 'bg-yellow-400'; // Vida alta
     } else if (pokemonContrario.pv > 120) {
@@ -429,6 +425,7 @@ export default class BatallaPokemonComponent {
       this.activarAnimacionPokemonDerrotado( indexRival )
     }else{
       setTimeout(() => {
+        this.AgregarComentarioACaja( `${this.campoDeBatalla[this.pokemonActivo].nombre} ataca a su rival ${this.campoDeBatalla[indexRival].nombre } y generó ${Math.floor(determinarEfectividad(this.campoDeBatalla[this.pokemonActivo], this.campoDeBatalla[indexRival])) } puntos de daño, es un ataque ${ obtenerEfectividad( this.campoDeBatalla[this.pokemonActivo].tipo, this.campoDeBatalla[indexRival].tipo) }` )
         this.puedeAtacar = true
       }, 1000);
     }
@@ -459,8 +456,6 @@ export default class BatallaPokemonComponent {
     
     this.pokemonActivo = indexPokemon
 
-    console.log( indexPokemon )
-    
     if(key === 0){
       if(valor === 0){
         if( this.campoDeBatalla[indexPokemon].atk === 100 ){
@@ -515,6 +510,19 @@ export default class BatallaPokemonComponent {
     this.pokemonActivo = indexPokemon
 
     this.activarAnimacionBuff()
+  }
+
+  enabled: boolean = true
+  textAccionesToggle = 'ocultar'
+  //Mostrar/ocultar acciones
+  toggle() {
+    this.enabled = !this.enabled
+
+    if( this.enabled) {
+      this.textAccionesToggle = 'ocultar'
+    }else{
+      this.textAccionesToggle = 'mostrar'
+    }
   }
 
 }

@@ -148,12 +148,35 @@
         </div>
         
         <div class="mt-4">
-            <span class="ml-4 text-sm text-gray-400">acciones</span>
-            <div class="bg-gray-200 rounded-xl p-8 text-white grid grid-cols-1 sm:grid-cols-2 sm:gap-4 overflow-y-auto">
+            
+            <div class="flex">
+                <span class="ml-4 text-sm text-gray-400">acciones</span>
+    
+                <div class="flex items-center ml-4">
+                    <div (click)="toggle()" class="group relative inline-flex h-5 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
+                        <span class="sr-only">Use setting</span>
+                        
+                        <!-- Fondo del toggle -->
+                        <span aria-hidden="true" class="pointer-events-none absolute w-full h-full rounded-md bg-white"></span>
+                      
+                        <!-- Parte de fondo gris -->
+                        <span aria-hidden="true" 
+                              class="pointer-events-none absolute mx-auto h-4 w-9 rounded-full {{ enabled ? 'bg-blue-500' : 'bg-gray-200'}} transition-colors duration-200 ease-in-out"></span>
+                      
+                        <!-- Botón del toggle -->
+                        <span aria-hidden="true" 
+                              class="pointer-events-none absolute left-0 inline-block h-5 w-5 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"
+                              [class.translate-x-5]="enabled"></span>
+                      </div>
+                      <span class="ml-2 text-gray-400">{{ textAccionesToggle }}</span>
+                </div>
+            </div>
+
+            <div class="bg-gray-200 rounded-xl p-8 text-white {{ enabled ? 'grid' : 'hidden' }} grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto">
                 <div class="grid grid-cols-1 xl:grid-cols-3 xl:w-fit rounded-xl {{ pokemon.estilo }}" *ngFor="let pokemon of campoDeBatalla; let i = index">
                     
-                    <div class="flex justify-center bg-white rounded-t-xl xl:rounded-l-xl">
-                        <img class="object-contain object-center mb-2 hover:scale-125" src="{{ pokemon.img }}" alt="">
+                    <div class="flex justify-center bg-white max-xl:rounded-t-xl xl:rounded-l-xl">
+                        <img class="object-contain self-center max-h-[200px] object-center mb-2 hover:scale-125" src="{{ pokemon.img }}" alt="">
                     </div>
     
                     <div class="flex flex-col bg-gray-100 text-left px-4 text-nowrap">
