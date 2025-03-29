@@ -1,7 +1,7 @@
 
 <div class="flex flex-col p-4">
 
-    <h1 class="text-red-600 text-3xl">Batalla Pokemon </h1>
+    <h1 class="text-red-600 text-3xl">Batalla Pokemon</h1>
     <div class="flex space-x-10">
         <a href="codigo-morse">
             <span class="underline text-gray-400 text-sm">prueba anteior (Código Morse)<span aria-hidden="true">&rarr;</span></span>
@@ -217,8 +217,10 @@
                 comentarios:
             </span>
             <div class="bg-gray-600 rounded-xl p-4 text-white h-[150px] overflow-y-auto">
-                <div *ngFor="let comentario of comentarios.reverse()" class="{{ comentario.diseno }}">
-                    {{ comentario.texto }}
+                <div class="flex flex-col-reverse">
+                    <div *ngFor="let comentario of comentarios" class="{{ comentario.diseno }}">
+                        {{ comentario.texto }}
+                    </div>
                 </div>
             </div>
         </div>

@@ -451,9 +451,8 @@ export default class BatallaPokemonComponent {
   comentarios: Comentario[] = []
 
   AgregarComentarioACaja(texto: string){
-    if( this.comentarios.some(x => true)) this.comentarios.reverse()[0].diseno = 'text-gray-200'
+    if( this.comentarios.some(x => true)) this.comentarios[0].diseno = 'text-gray-200'
 
-    this.comentarios.reverse()
 
     this.comentarios.push(
       {
