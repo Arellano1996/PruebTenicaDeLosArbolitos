@@ -295,6 +295,7 @@ export default class BatallaPokemonComponent {
     if (event.previousContainer.id === 'campoDeBatalla' && event.container.id === 'pokemones') {
       // Asegurarse de que el elemento a transferir tiene la propiedad `pv`
       const pokemon: Pokemon = event.previousContainer.data[event.previousIndex];
+      this.AgregarComentarioACaja(`${ pokemon.nombre } sale del campo de batalla!`)
       pokemon.pv = 200;  // Establecer la propiedad `pv` a 200
       pokemon.estiloBatalla = 'bg-green-500'  // Reiniciar estilo `pv` a 200
     }
@@ -309,6 +310,13 @@ export default class BatallaPokemonComponent {
         event.currentIndex,
       );
     }
+
+    // Detectar si el Pokémon acaba de entrar al campo de batalla
+    if (event.container.id === 'campoDeBatalla') {
+      const pokemon: Pokemon = event.container.data[event.currentIndex];
+      this.AgregarComentarioACaja(`${pokemon.nombre} entra al campo de batalla!`);
+    }
+
   }
 
   pokemonActivo: number = 0
@@ -321,7 +329,7 @@ export default class BatallaPokemonComponent {
   derrotado: boolean= false;
   puedeAtacar: boolean = true;
 
-  activarAnimacionAtacar(orientacion: number, indexRival: number) {
+  activarAnimacionAtacar(orientacion: number) {
     
     setTimeout(() => {
       this.shake = true;
@@ -337,7 +345,6 @@ export default class BatallaPokemonComponent {
       setTimeout(() => this.toLeft = false, 1000);
     }
 
-    this.calcularDaño(indexRival)
   }
 
   activarAnimacionBuff(animacion: number = 0){
@@ -397,7 +404,7 @@ export default class BatallaPokemonComponent {
     
     this.pokemonActivo = index
     
-    this.activarAnimacionAtacar(pokemon.orientacion, indexRival)
+    this.calcularDaño(indexRival)
     
     
   }
@@ -421,11 +428,17 @@ export default class BatallaPokemonComponent {
     }else this.campoDeBatalla[indexRival].estiloBatalla = 'bg-red-800'; //Vida muy baja
     
     if(pokemonContrario.pv <= 1){
+
       this.AgregarComentarioACaja( `Parece que ${this.campoDeBatalla[this.pokemonActivo].nombre} ha logrado debilitar a su oponente ${ this.campoDeBatalla[indexRival].nombre }, ${ this.campoDeBatalla[indexRival].nombre } no puedo continuar esta batalla. ${this.campoDeBatalla[this.pokemonActivo].nombre} es el ganador.` )
       this.activarAnimacionPokemonDerrotado( indexRival )
-    }else{
+    }
+    else{
+
+      this.AgregarComentarioACaja( `${this.campoDeBatalla[this.pokemonActivo].nombre} ataca a su rival ${this.campoDeBatalla[indexRival].nombre } y generó ${Math.floor(determinarEfectividad(this.campoDeBatalla[this.pokemonActivo], this.campoDeBatalla[indexRival])) } puntos de daño, es un ataque ${ obtenerEfectividad( this.campoDeBatalla[this.pokemonActivo].tipo, this.campoDeBatalla[indexRival].tipo) }` )
+      
+      this.activarAnimacionAtacar( this.campoDeBatalla[ this.pokemonActivo ].orientacion )
+
       setTimeout(() => {
-        this.AgregarComentarioACaja( `${this.campoDeBatalla[this.pokemonActivo].nombre} ataca a su rival ${this.campoDeBatalla[indexRival].nombre } y generó ${Math.floor(determinarEfectividad(this.campoDeBatalla[this.pokemonActivo], this.campoDeBatalla[indexRival])) } puntos de daño, es un ataque ${ obtenerEfectividad( this.campoDeBatalla[this.pokemonActivo].tipo, this.campoDeBatalla[indexRival].tipo) }` )
         this.puedeAtacar = true
       }, 1000);
     }
